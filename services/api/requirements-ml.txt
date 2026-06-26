@@ -1,0 +1,32 @@
+# Heavy local ML stack for the dataset-builder engine (VAD + transcription).
+#
+# These are intentionally SEPARATE from requirements.txt: the API boots and
+# `pnpm test:api` / `pnpm check:structure` pass WITHOUT this file installed,
+# because everything here is lazy-imported inside app/service/engine/ only at
+# the moment a build job actually runs.
+#
+# Install when you want to run the pipeline:
+#   cd services/api && source .venv/bin/activate
+#   pip install -r requirements-ml.txt
+#
+# System dependency: ffmpeg must be on PATH (audio decoding via librosa).
+#   macOS:  brew install ffmpeg
+#   Debian: sudo apt-get install ffmpeg
+#
+# Device note: CPU works for short clips with the `base` model + int8 compute.
+# The engine auto-detects CUDA -> Apple MPS -> CPU at runtime (see
+# app/service/engine/device.py). pyannote/torch use MPS where available;
+# faster-whisper (CTranslate2) has no MPS backend, so it maps MPS -> CPU(int8).
+#
+# pyannote.audio is pinned to the 3.x line on purpose: 4.x defaults to a
+# separately-gated `community-1` weight that 403s unless those terms are also
+# accepted, breaking VAD for the already-accepted segmentation-3.0 gate. The
+# 3.x line loads ONLY from the accepted segmentation-3.0 repo.
+pyannote.audio>=3.3.2,<4
+faster-whisper>=1.0.0
+torch>=2.0.0
+torchaudio>=2.0.0
+librosa>=0.10.0
+soundfile>=0.12.0
+numpy>=1.24.0
+webrtcvad>=2.0.10

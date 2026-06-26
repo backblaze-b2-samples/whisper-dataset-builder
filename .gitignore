@@ -50,3 +50,6 @@ test-results/
 
 # Local runtime data (download counter, etc.)
 services/api/data/
+
+# Local pipeline working dir (build artifacts, scratch assets, screenshots)
+.local/

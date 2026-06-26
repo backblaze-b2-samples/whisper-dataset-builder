@@ -15,6 +15,28 @@ Built for ML engineers and speech researchers building custom ASR/TTS models, an
 
 The headline B2 story is **write-amplification**: one source recording → N labeled clip/transcript pairs, all stored on B2 over the S3-compatible API.
 
+## What it looks like
+
+**Dashboard** — recordings ingested, datasets built, total clips, clip-hours and average write-amplification, with a 7-day ingest chart and the most recent builds.
+
+![Dashboard with builder metrics, a 7-day ingest chart, and recent builds](docs/images/dashboard.png)
+
+**Upload** — drag-and-drop long-form recordings that land under the `sources/` prefix on B2 and become selectable when you build a dataset.
+
+![Upload page with a drag-and-drop dropzone for source recordings](docs/images/upload.png)
+
+**Datasets** — the scoped explorer for the training-ready datasets this app has built from your B2 recordings, each showing its layout, clip count and status.
+
+![Datasets list showing built speech datasets with layout, clips and status](docs/images/datasets.png)
+
+**New dataset** — pick a source recording and tune the pipeline (VAD engine, Whisper model, language, layout, clip bounds, SNR) before a build.
+
+![New dataset form with source selection and pipeline build configuration](docs/images/new-dataset.png)
+
+**Dataset detail** — per-dataset stats and a copy-paste snippet to load straight from B2, over the full list of segmented, transcribed clips with inline playback.
+
+![Dataset detail with stats, a load-from-B2 snippet, and the transcribed clip list](docs/images/dataset-detail.png)
+
 ## The Hugging Face token (honest version)
 
 pyannote VAD is the **showcased, recommended engine**. Its `segmentation-3.0` weights are gated, so to use it you need a **free** Hugging Face token and a one-time terms acceptance:

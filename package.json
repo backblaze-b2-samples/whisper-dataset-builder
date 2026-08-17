@@ -21,7 +21,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@babel/core": ">=7.29.6",
+      "@babel/core": ">=7.29.6 <8",
       "@hono/node-server": ">=1.19.15",
       "ajv@6.12.6": "npm:ajv@6.14.0",
       "ajv@8.17.1": "npm:ajv@8.18.0",

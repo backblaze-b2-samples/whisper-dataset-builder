@@ -24,13 +24,12 @@
 # 3.x line loads ONLY from the accepted segmentation-3.0 repo.
 pyannote.audio>=3.3.2,<4
 faster-whisper>=1.0.0
-# torch/torchaudio carry upper bounds on purpose. The engine assumes torch 2.6+
-# APIs (`torch.serialization.add_safe_globals` in _torch_safe.py), so the lower
-# bound is 2.6 — but torchaudio>=2.8 removed `torchaudio.AudioMetaData`, which
-# pyannote.audio 3.x imports at module load, so the upper bound is <2.8. The
-# 2.7.x line is the only window that satisfies both.
-torch>=2.6,<2.8
-torchaudio>=2.6,<2.8
+# torch/torchaudio carry lower bounds on purpose. The engine assumes torch 2.6+
+# APIs (`torch.serialization.add_safe_globals` in _torch_safe.py), and Dependabot
+# alerts require patched torch releases. Keep torchaudio on the same major/minor
+# line as torch when installing the ML stack.
+torch>=2.13.0
+torchaudio>=2.13.0
 # huggingface_hub>=0.26 removed the `use_auth_token=` kwarg that vad.py and
 # pyannote.audio 3.x still pass to hf_hub_download / Model.from_pretrained.
 huggingface_hub>=0.23,<0.26
